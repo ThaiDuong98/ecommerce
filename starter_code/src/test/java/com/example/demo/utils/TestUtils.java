@@ -4,6 +4,7 @@ import com.example.demo.model.persistence.Cart;
 import com.example.demo.model.persistence.Item;
 import com.example.demo.model.persistence.User;
 import com.example.demo.model.persistence.UserOrder;
+import com.example.demo.model.requests.ModifyCartRequest;
 
 import java.math.BigDecimal;
 import java.lang.reflect.Field;
@@ -64,10 +65,19 @@ public class TestUtils {
     public static Item createItem(long id) {
         Item item = new Item();
         item.setId(id);
-        item.setPrice(BigDecimal.valueOf(id * 5));
-        item.setName("Item - " + item.getId());
-        item.setDescription("This is item: " + item.getId());
+        item.setPrice(BigDecimal.valueOf(id * 3));
+        item.setName("New item - " + item.getId());
+        item.setDescription("New item: " + item.getId());
         return item;
+    }
+
+    public static ModifyCartRequest createNewModifyCartRequest(){
+        ModifyCartRequest newRequest = new ModifyCartRequest();
+        newRequest.setUsername(USERNAME);
+        newRequest.setItemId(1L);
+        newRequest.setQuantity(5);
+
+        return newRequest;
     }
 
     public static List<UserOrder> createOrders(String username, String password) {

@@ -10,11 +10,14 @@ import com.example.demo.model.requests.ModifyCartRequest;
 import com.example.demo.utils.TestUtils;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import static com.example.demo.utils.TestUtils.*;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -34,28 +37,61 @@ public class CartControllerTest {
     }
 
     @Test
-    public void tesAddToCart() throws Exception{
+    public void tesAddToCartSuccess() throws Exception{
         User user = createUser(USERNAME, PASSWORD);
-        Cart cart = TestUtils.createCart(user);
+        Cart cart = createCart(user);
         user.setCart(cart);
 
-        ModifyCartRequest newRequest = new ModifyCartRequest();
+        ModifyCartRequest newRequest = createNewModifyCartRequest();
+
+        Item item = createItem(1);
 
         when(userRepository.findByUsername(USERNAME)).thenReturn(user);
+        when(itemRepository.findById(1L)).thenReturn(Optional.of(item));
+
         ResponseEntity<Cart> response = cartController.addTocart(newRequest);
+
         assertNotNull(response);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
     @Test
-    public void tesRemoveFromCart() throws Exception{
+    public void tesAddToCartFail() throws Exception{
+        ModifyCartRequest newRequest = new ModifyCartRequest();
+        newRequest.setUsername(null);
+
+        ResponseEntity<Cart> response = cartController.addTocart(newRequest);
+        assertNotNull(response);
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
+
+    @Test
+    public void tesRemoveFromCarSuccess() throws Exception{
         User user = createUser(USERNAME, PASSWORD);
         Cart cart = TestUtils.createCart(user);
         user.setCart(cart);
 
-        ModifyCartRequest newRequest = new ModifyCartRequest();
+        Item item = createItem(1);
+
+        cart.addItem(item);
+
+        ModifyCartRequest newRequest = createNewModifyCartRequest();
 
         when(userRepository.findByUsername(USERNAME)).thenReturn(user);
+        when(itemRepository.findById(2L)).thenReturn(Optional.of(item));
+
         ResponseEntity<Cart> response = cartController.removeFromcart(newRequest);
         assertNotNull(response);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+    @Test
+    public void tesRemoveFromCarFail() throws Exception{
+        ModifyCartRequest newRequest = new ModifyCartRequest();
+        newRequest.setUsername(null);
+
+        ResponseEntity<Cart> response = cartController.removeFromcart(newRequest);
+        assertNotNull(response);
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 }
