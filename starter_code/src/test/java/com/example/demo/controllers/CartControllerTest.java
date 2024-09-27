@@ -78,7 +78,7 @@ public class CartControllerTest {
         ModifyCartRequest newRequest = createNewModifyCartRequest();
 
         when(userRepository.findByUsername(USERNAME)).thenReturn(user);
-        when(itemRepository.findById(2L)).thenReturn(Optional.of(item));
+        when(itemRepository.findById(1L)).thenReturn(Optional.of(item));
 
         ResponseEntity<Cart> response = cartController.removeFromcart(newRequest);
         assertNotNull(response);
