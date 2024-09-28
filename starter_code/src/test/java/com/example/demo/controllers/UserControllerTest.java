@@ -50,7 +50,7 @@ public class UserControllerTest {
         ResponseEntity<User> response = userController.findById(1L);
 
         assertNotNull(response);
-        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
     @Test
@@ -60,7 +60,7 @@ public class UserControllerTest {
         ResponseEntity<User> response = userController.findById(1L);
 
         assertNotNull(response);
-        assertEquals(404, response.getStatusCodeValue());
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
     @Test

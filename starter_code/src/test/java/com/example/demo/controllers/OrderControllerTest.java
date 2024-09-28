@@ -7,6 +7,7 @@ import com.example.demo.model.persistence.repositories.UserRepository;
 import com.example.demo.utils.TestUtils;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -37,7 +38,7 @@ public class OrderControllerTest {
         ResponseEntity<UserOrder> response = orderController.submit(USERNAME);
 
         assertNotNull(response);
-        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
     @Test
@@ -47,7 +48,7 @@ public class OrderControllerTest {
         ResponseEntity<UserOrder> response = orderController.submit("sun");
 
         assertNotNull(response);
-        assertEquals(404, response.getStatusCodeValue());
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
     @Test
@@ -61,7 +62,7 @@ public class OrderControllerTest {
         ResponseEntity<List<UserOrder>> response = orderController.getOrdersForUser(USERNAME);
 
         assertNotNull(response);
-        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
     @Test
@@ -71,7 +72,7 @@ public class OrderControllerTest {
         ResponseEntity<List<UserOrder>> response = orderController.getOrdersForUser("sun");
 
         assertNotNull(response);
-        assertEquals(404, response.getStatusCodeValue());
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
 }

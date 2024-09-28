@@ -7,6 +7,7 @@ import com.example.demo.model.persistence.repositories.UserRepository;
 import com.example.demo.utils.TestUtils;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.math.BigDecimal;
@@ -40,7 +41,7 @@ public class ItemControllerTest {
         ResponseEntity<List<Item>> response = itemController.getItems();
 
         assertNotNull(response);
-        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
     @Test
@@ -52,7 +53,7 @@ public class ItemControllerTest {
         ResponseEntity<Item> response = itemController.getItemById(1L);
 
         assertNotNull(response);
-        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
     @Test
@@ -62,7 +63,7 @@ public class ItemControllerTest {
         ResponseEntity<Item> response = itemController.getItemById(1L);
 
         assertNotNull(response);
-        assertEquals(404, response.getStatusCodeValue());
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
     @Test
@@ -73,7 +74,7 @@ public class ItemControllerTest {
         ResponseEntity<List<Item>> response = itemController.getItemsByName("newItem");
 
         assertNotNull(response);
-        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
     @Test
@@ -83,6 +84,6 @@ public class ItemControllerTest {
         ResponseEntity<List<Item>> response = itemController.getItemsByName("sun");
 
         assertNotNull(response);
-        assertEquals(404, response.getStatusCodeValue());
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 }
