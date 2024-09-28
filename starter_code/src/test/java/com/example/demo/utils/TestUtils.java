@@ -56,7 +56,7 @@ public class TestUtils {
 
     public static List<Item> createItems() {
         List<Item> items = new ArrayList<>();
-        for (int i = 1; i <= 5; i++) {
+        for (int i = 1; i <= 3; i++) {
             items.add(createItem(i));
         }
         return items;
@@ -66,7 +66,7 @@ public class TestUtils {
         Item item = new Item();
         item.setId(id);
         item.setPrice(BigDecimal.valueOf(id * 3));
-        item.setName("New item - " + item.getId());
+        item.setName("newItem");
         item.setDescription("New item: " + item.getId());
         return item;
     }
@@ -82,7 +82,7 @@ public class TestUtils {
 
     public static List<UserOrder> createOrders(String username, String password) {
         List<UserOrder> orders = new ArrayList<>();
-        for (int i = 0; i <= 2; i++) {
+        for (int i = 0; i < 2; i++) {
             UserOrder userOrder = new UserOrder();
             Cart cart = createCart(createUser(username, password));
             userOrder.setUser(createUser(username, password));
